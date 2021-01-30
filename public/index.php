@@ -1,6 +1,9 @@
 <?php
 define("ROOT", $_SERVER['DOCUMENT_ROOT']);
 use vendor\core\Router;
+use app\controllers;
+use vendor\core\DB;
+use app\controllers\MainController;
 
 /**
  * Функция автозагрузки классов
@@ -24,8 +27,25 @@ $query = $_SERVER['REQUEST_URI'];
  * В начале идет шаблон регулярного выражения, которое будет характеризовать,
  * строку запроса и масив с названием класса и метода который обработает этот запрос.
  */
-Router::add(['#^(user/\d+)?$#i', ['controller' => 'Main', 'method' => 'index']]);
+Router::add(['#^(user/\d+)$#i', ['controller' => 'Main', 'method' => 'indexOne']]);
+Router::add(['#^$#i', ['controller' => 'Main', 'method' => 'indexAll']]);
 
 
+
+/**
+ * Передается строка запроса роутеру
+ */
 Router::parseQuery($query);
+
+
+/**
+ * Возвращает обьект контроллера
+ */
+$controller = Router::createController();
+/**
+ * Записывает вызываемый метод обьекта в переменную
+ */
+$method = $controller->method;
+
+var_dump($controller->$method());
 

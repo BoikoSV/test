@@ -19,24 +19,27 @@ class Router
      */
     public static function parseQuery($query){
         $query = trim($query, '//');
+
         foreach (self::$routes as $route){
+
             if (preg_match($route[0], $query, $matches)){
+
                 self::$currentRoute = $route[1];
+                var_dump(Router::$currentRoute);
                 if (isset($matches[1])){
                     $param = explode('/' ,$matches[1]);
                     self::$param = [
                         $param[0] => $param[1]
                     ];
+                    return;
                 }
-            }else{
-                echo 'Такой страницы не существует';die(); //TODO Написать функцию переадресации на страницу 404
+                return;
             }
         }
     }
 
     /**
-     * Возвращает обьект контроллера.
-     * В созданный контроллер передаются параметры(название контроллера, вызываемый метод, параметры если такие есть)
+     * Создает и возвращает контроллер исходя из строки запроса
      * @return mixed
      */
     public static function createController(){
@@ -49,6 +52,6 @@ class Router
                 $controlParametrs
             );
         }
-            echo 'Такой страницы не существует';die(); //TODO Написать функцию переадресации на страницу 404
+            return 'Такой страницы не существует'; //TODO Написан функцию 404 ошибки
     }
 }

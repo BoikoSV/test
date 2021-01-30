@@ -29,8 +29,26 @@ class Router
                     ];
                 }
             }else{
-                echo 'Такой страницы не существует'; //TODO Написать функцию переадресации на страницу 404
+                echo 'Такой страницы не существует';die(); //TODO Написать функцию переадресации на страницу 404
             }
         }
+    }
+
+    /**
+     * Возвращает обьект контроллера.
+     * В созданный контроллер передаются параметры(название контроллера, вызываемый метод, параметры если такие есть)
+     * @return mixed
+     */
+    public static function createController(){
+        $controller = 'app\controllers\\' . self::$currentRoute['controller'] . 'Controller';
+        $controlParametrs = self::$param ? : self::$param;
+        if (class_exists($controller)){
+            return new $controller(
+                self::$currentRoute['controller'],
+                self::$currentRoute['method'],
+                $controlParametrs
+            );
+        }
+            echo 'Такой страницы не существует';die(); //TODO Написать функцию переадресации на страницу 404
     }
 }

@@ -1,5 +1,6 @@
 <?php
 namespace vendor\core;
+use app\controllers\MainController;
 
 class Router
 {
@@ -25,7 +26,6 @@ class Router
             if (preg_match($route[0], $query, $matches)){
 
                 self::$currentRoute = $route[1];
-                var_dump(Router::$currentRoute);
                 if (isset($matches[1])){
                     $param = explode('/' ,$matches[1]);
                     self::$param = [
@@ -49,7 +49,7 @@ class Router
             return new $controller(
                 self::$currentRoute['controller'],
                 self::$currentRoute['method'],
-                $controlParametrs
+                self::$param = $controlParametrs
             );
         }
             return 'Такой страницы не существует'; //TODO Написан функцию 404 ошибки

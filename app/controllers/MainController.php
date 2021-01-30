@@ -24,4 +24,15 @@ class MainController extends Controller
         return $arrPost;
     }
 
+    /**
+     * Метод который выводит посты одного пользователя на страницу
+     * @return array
+     */
+    public function indexOne()
+    {
+        $posts = new Post();
+        $arrPosts = $posts->getOneUserPosts($this->params);
+        return $arrPosts;
+    }
+
 }

@@ -68,17 +68,18 @@ class DB
      */
     public function getOneUsersPosts($user, $quantity)
     {
-        $sql = "SELECT users.id as user_id,
+
+        $sql = "SELECT users.id,
                     users.first_name as first_name,
                     users.last_name as last_name,
                     posts.title as title,
                     substring(posts.body, 1, 80) as text
                     FROM users JOIN posts ON user_id = posts.user_id 
-                    WHERE user_id = :user LIMIT :quantity";
+                    WHERE users.id = :user LIMIT :quantity";
         $stmt = $this->pdo->prepare($sql);
 
         $stmt->execute([
-            'user' => $user,
+            'user' => $user['user'],
             'quantity' => $quantity
         ]);
         $result = $stmt->fetchAll();

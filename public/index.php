@@ -4,6 +4,7 @@ use vendor\core\Router;
 use app\controllers;
 use vendor\core\DB;
 use app\controllers\MainController;
+use \vendor\core\Curl;
 
 /**
  * Функция автозагрузки классов
@@ -27,8 +28,13 @@ $query = $_SERVER['REQUEST_URI'];
  * В начале идет шаблон регулярного выражения, которое будет характеризовать,
  * строку запроса и масив с названием класса и метода который обработает этот запрос.
  */
-Router::add(['#^(user/\d+)$#i', ['controller' => 'Main', 'method' => 'indexOne']]);
-Router::add(['#^$#i', ['controller' => 'Main', 'method' => 'indexAll']]);
+Router::add(['#^(api)$#i', ['controller' => 'Curl', 'method' => 'recordingData']]); //Маршрут для api
+Router::add(['#^(user/\d+)$#i', ['controller' => 'Main', 'method' => 'indexOne']]); //Маршрут для фильтра
+Router::add(['#^$#i', ['controller' => 'Main', 'method' => 'indexAll']]);           //Маршрут для главной страницы
+
+
+//$curl = new controllers\CurlController();
+//var_dump($curl->recordingData());die();
 
 
 
@@ -46,6 +52,10 @@ $controller = Router::createController();
  * Записывает вызываемый метод обьекта в переменную
  */
 $method = $controller->method;
+var_dump($controller->method);
+/**
+ * Вызов метода соответсвующего запросу
+ */
+$controller->$method();
 
-var_dump($controller->$method());
 

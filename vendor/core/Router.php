@@ -45,10 +45,12 @@ class Router
     public static function createController(){
         $controller = 'app\controllers\\' . self::$currentRoute['controller'] . 'Controller';
         $controlParametrs = self::$param ? : self::$param;
+        $controllerSelf = self::$currentRoute['controller'];
+        $methodSelf =self::$currentRoute['method'];
         if (class_exists($controller)){
             return new $controller(
-                self::$currentRoute['controller'],
-                self::$currentRoute['method'],
+                $controllerSelf,
+                $methodSelf,
                 self::$param = $controlParametrs
             );
         }

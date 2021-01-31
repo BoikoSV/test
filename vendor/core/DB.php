@@ -85,6 +85,18 @@ class DB
         $result = $stmt->fetchAll();
         return $result;
     }
+    public function insertData($arr){
+
+        $sql = 'INSERT INTO `posts`(`id`, `user_id`, `title`, `body`) VALUES (:id, :user_id, :title, :body)';
+
+        $stm = $this->pdo->prepare($sql);
+        $stm->execute([
+            'id' => $arr['id'],
+            'user_id' => $arr['userId'],
+            'title' => $arr['title'],
+            'body' => $arr['body']
+        ]);
+    }
 
     private function __clone()
     {

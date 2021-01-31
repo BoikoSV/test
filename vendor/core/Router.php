@@ -26,10 +26,11 @@ class Router
             if (preg_match($route[0], $query, $matches)){
 
                 self::$currentRoute = $route[1];
+
                 if (isset($matches[1])){
-                    $param = explode('/' ,$matches[1]);
+                    $param = $_GET['user'];                                //explode('/' ,$matches[1]);
                     self::$param = [
-                        $param[0] => $param[1]
+                        'user' => $param
                     ];
                     return;
                 }

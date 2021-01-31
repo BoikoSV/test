@@ -97,6 +97,14 @@ class DB
             'body' => $arr['body']
         ]);
     }
+    public function getUsers(){
+        $sql = "SELECT * FROM users";
+        $stmt = $this->pdo->prepare($sql);
+
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+        return $result;
+    }
 
     private function __clone()
     {

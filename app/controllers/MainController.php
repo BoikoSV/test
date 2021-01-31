@@ -21,7 +21,8 @@ class MainController extends Controller
     public function indexAll(){
         $post = new Post();
         $arrPost = $post->getAll();
-        return $arrPost;
+        $arrUsers = $post->getUsers();
+        return [$arrPost, $arrUsers];
     }
 
     /**
@@ -32,7 +33,8 @@ class MainController extends Controller
     {
         $posts = new Post();
         $arrPosts = $posts->getOneUserPosts($this->params);
-        return $arrPosts;
+        $arrUsers = $posts->getUsers();
+        return [$arrPosts, $arrUsers];
     }
 
 }

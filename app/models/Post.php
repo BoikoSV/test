@@ -27,4 +27,7 @@ class Post
         return DB::getInstance()->getOneUsersPosts($user, $this->quantity);
 
     }
+    public function getUsers(){
+        return DB::getInstance()->getUsers();
+    }
 }

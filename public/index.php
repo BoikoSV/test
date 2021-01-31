@@ -29,7 +29,7 @@ $query = $_SERVER['REQUEST_URI'];
  * строку запроса и масив с названием класса и метода который обработает этот запрос.
  */
 Router::add(['#^(api)$#i', ['controller' => 'Curl', 'method' => 'recordingData']]); //Маршрут для api
-Router::add(['#^(user/\d+)$#i', ['controller' => 'Main', 'method' => 'indexOne']]); //Маршрут для фильтра
+Router::add(['#^.*(user=\d+)$#i', ['controller' => 'Main', 'method' => 'indexOne']]); //Маршрут для фильтра
 Router::add(['#^$#i', ['controller' => 'Main', 'method' => 'indexAll']]);           //Маршрут для главной страницы
 
 
@@ -52,10 +52,13 @@ $controller = Router::createController();
  * Записывает вызываемый метод обьекта в переменную
  */
 $method = $controller->method;
-var_dump($controller->method);
+//var_dump($controller->method);
 /**
  * Вызов метода соответсвующего запросу
  */
-$controller->$method();
-
+$arr = $controller->$method();
+$data = $arr[0];
+$users = $arr[1];
+//var_dump($users);
+require_once ROOT . '/views/content.html';
 

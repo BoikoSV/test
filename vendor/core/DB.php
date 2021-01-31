@@ -69,7 +69,7 @@ class DB
     public function getOneUsersPosts($user, $quantity)
     {
 
-        $sql = "SELECT users.id,
+        $sql = "SELECT users.id as user_id,
                     users.first_name as first_name,
                     users.last_name as last_name,
                     posts.title as title,

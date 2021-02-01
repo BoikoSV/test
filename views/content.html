@@ -5,8 +5,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
     <title>test.ua</title>
+    <style>
+        .card{
+            min-height: 330px;
+        }
+        .card-header{
+            min-height: 80px;
+        }
+    </style>
 </head>
 <body>
 <header class="header">
@@ -16,7 +23,6 @@
                 <form class="d-flex" action="<?php $_GET['user'] ?>">
                     <select class="form-select" name="user">
 
-                        <option selected>Выбор автора</option>
 
                         <?php if(is_array($users) and $users != 0) {
                             foreach ($users as $someUser){
@@ -35,31 +41,45 @@
                 </form>
             <button class="btn btn-danger">Загрузить данные</button>
         </nav>
-
-        </div>
-        <div class="row mt-3">
-
-            <?php if(is_array($data) and $data != 0) {
-                foreach ($data as $post){
-                    ?>
-                    <div class="col-3">
-                        <div class="card text-dark bg-light mb-3" style="max-width: 18rem;">
-                            <div class="card-header"><?php echo $post['title'] ?></div>
-                            <div class="card-body">
-                                <p class="card-text"><?php echo $post['body'] ?></p>
-                                <a href="#" class="card-link">Читать полностью</a>
-                            </div>
-                        </div>
-                    </div>
-
-                  <?php
-                }
-            } ?>
-
         </div>
     </div>
 </header>
+<?php if ($_GET['user'] == true) {?>
+<section class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Все посты</a></li>
+            <?php foreach ($users as $oneUser){
+                if ($oneUser['id'] == $_GET['user']){
+            ?>
+            <li class="breadcrumb-item active" aria-current="page"><?php echo $oneUser['first_name'] . ' ' . $oneUser['last_name']; ?></li>
+            <?php }}?>
+        </ol>
+    </nav>
+</section>
+<?php } ?>
+<section class="container">
+    <div class="row mt-3">
 
+        <?php if(is_array($data) and $data != 0) {
+            foreach ($data as $post){
+                ?>
+                <div class="col-3">
+                    <div class="card text-dark bg-light mb-3" style="max-width: 18rem;">
+                        <div class="card-header bg-light text-dark h6"><?php echo $post['title'] ?></div>
+                        <div class="card-body">
+                            <p class="card-text"><?php echo $post['body'] ?></p>
+                                <a href="#" class="card-link">Читать полностью</a>
+                        </div>
+                    </div>
+                </div>
+
+                <?php
+            }
+        } ?>
+
+    </div>
+</section>
 
 
 

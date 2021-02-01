@@ -25,6 +25,6 @@ class CurlController extends Controller
             $db->insertData($value);
 
         }
-
+        header("Location: /");
     }
 }

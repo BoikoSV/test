@@ -33,8 +33,6 @@ Router::add(['#^.*(user=\d+)$#i', ['controller' => 'Main', 'method' => 'indexOne
 Router::add(['#^$#i', ['controller' => 'Main', 'method' => 'indexAll']]);           //Маршрут для главной страницы
 
 
-//$curl = new controllers\CurlController();
-//var_dump($curl->recordingData());die();
 
 
 
@@ -52,13 +50,13 @@ $controller = Router::createController();
  * Записывает вызываемый метод обьекта в переменную
  */
 $method = $controller->method;
-//var_dump($controller->method);
+
 /**
  * Вызов метода соответсвующего запросу
  */
 $arr = $controller->$method();
 $data = $arr[0];
 $users = $arr[1];
-//var_dump($users);
+
 require_once ROOT . '/views/content.html';
 

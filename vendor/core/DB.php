@@ -74,7 +74,7 @@ class DB
                     users.last_name as last_name,
                     posts.title as title,
                     substring(posts.body, 1, 80) as text
-                    FROM users JOIN posts ON user_id = posts.user_id 
+                    FROM users JOIN posts ON users.id = posts.user_id 
                     WHERE users.id = :user LIMIT :quantity";
         $stmt = $this->pdo->prepare($sql);
 

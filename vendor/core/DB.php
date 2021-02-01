@@ -10,10 +10,10 @@ class DB
 {
 
     private static $instance = null;
-    private $host = 'localhost';
-    private $db = 'blog';
-    private $user = 'root';
-    private $pass = 'root';
+    private $host;
+    private $db;
+    private $user;
+    private $pass;
     public $pdo;
 
 
@@ -23,6 +23,11 @@ class DB
      */
     private function __construct()
     {
+        require_once ROOT . '/configDatabase.php';
+        $this->host = $connect['host'];
+        $this->db = $connect['db'];
+        $this->user = $connect['user'];
+        $this->pass = $connect['pass'];
         $dsn = "mysql:host=$this->host;dbname=$this->db;charset=utf8";
         $opt = [
             \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
